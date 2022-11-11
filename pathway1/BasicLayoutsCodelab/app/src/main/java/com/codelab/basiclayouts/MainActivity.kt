@@ -21,6 +21,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -290,10 +291,12 @@ fun MySootheApp() {
                 )
             }
         ) { paddingValues ->
-            if (selectedHome.value) {
-                HomeScreen(modifier = Modifier.padding(paddingValues))
-            } else {
-                ProfileScreen()
+            Crossfade(targetState = selectedHome.value) { selectedHome ->
+                if (selectedHome) {
+                    HomeScreen(modifier = Modifier.padding(paddingValues))
+                } else {
+                    ProfileScreen()
+                }
             }
         }
     }
